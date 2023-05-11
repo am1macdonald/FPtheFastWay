@@ -1,7 +1,6 @@
 import scala.collection.immutable.VectorMap
 @main def hello: Unit =
-  println("Hello world!")
-  println(msg)
+  println(replaceNewlinesWithBlanks(msg))
 
 def msg =
   "Problem territories let's circle back to that,\nface time, so game-plan window-licker,\nand helicopter view."
