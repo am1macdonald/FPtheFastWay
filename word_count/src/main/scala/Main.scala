@@ -1,7 +1,16 @@
 import scala.collection.immutable.VectorMap
-@main def hello: Unit =
-  println(replaceNewlinesWithBlanks(msg))
+import scala.util.matching.Regex
 
+@main def hello: Unit =
+  println(
+    lowerCaseAllWords(
+      convertStringToListOfWords(
+        squeezeBlankSpaces(
+          stripFormattingCharacters(replaceNewlinesWithBlanks(msg))
+        )
+      )
+    )
+  )
 def msg =
   "Problem territories let's circle back to that,\nface time, so game-plan window-licker,\nand helicopter view."
 
@@ -15,7 +24,6 @@ def wc(document: String): VectorMap[String, Int] = {
   val lcListOfWords = lowerCaseAllWords(listOfWords);
   val initialMap = convertWordListToWordCount(lcListOfWords);
   val sortedMap = sortMatByHighestValue(initialMap);
-
   sortedMap
 }
 
@@ -23,17 +31,28 @@ def replaceNewlinesWithBlanks(document: String): String = {
   document.replace('\n', ' ');
 }
 
-def stripFormattingCharacters(stringWithoutNewlines: String): String = ???
+def stripFormattingCharacters(stringWithoutNewlines: String): String = {
+  val regex: Regex = """[^\w\d\s]""".r
+  regex.replaceAllIn(stringWithoutNewlines, " ")
+}
 
-def squeezeBlankSpaces(stringWithoutFormatting: String): String = ???
+def squeezeBlankSpaces(stringWithoutFormatting: String): String = {
+  val regex: Regex = """\s+""".r
+  regex.replaceAllIn(stringWithoutFormatting, " ")
 
-def convertStringToListOfWords(stringWithSingleBlanks: String): String = ???
+}
 
-def lowerCaseAllWords(listOfWords: String): String = ???
+def convertStringToListOfWords(stringWithSingleBlanks: String): List[String] = {
+  stringWithSingleBlanks.split(' ').map(_.trim).toList
+}
 
-def convertWordListToWordCount(lcListOfWords: String): VectorMap[String, Int] =
-  ???
+def lowerCaseAllWords(listOfWords: List[String]): List[String] = {
+  listOfWords.map(_.toLowerCase()).toList
+}
 
+def convertWordListToWordCount(
+    lcListOfWords: List[String]
+): VectorMap[String, Int] = ???
 def sortMatByHighestValue(
     initialMap: VectorMap[String, Int]
 ): VectorMap[String, Int] = ???
