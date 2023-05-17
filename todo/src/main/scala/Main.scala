@@ -66,4 +66,6 @@ end Database
     val db = Database("./ToDoList.dat")
 
   promptUser()
+  val input: Try[String] = readInput()
+
 

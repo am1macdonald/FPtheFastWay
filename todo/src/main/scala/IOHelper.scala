@@ -11,5 +11,22 @@ object IOHelper:
     print("Yo: ")
   }
 
+  def readInput(): Try[String] = Try {
+    StdIn.readLine()
+  }
+
+  def showHelp(): Try[Unit] = Try {
+    val text = """
+    | Possible commands
+    | -----------------
+    | 
+    | a <task>         - add a to-do item
+    | h                - show help text
+    | d [task number]  - delete a task by its number
+    | v                - view the list of tasks
+    | q                - quit
+    """.stripMargin.trim
+    println(text)
+  }
 
 end IOHelper  
